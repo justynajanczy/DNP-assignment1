@@ -1,18 +1,21 @@
 ﻿@page "/Adults"
 @using Assignment1.Models
-@using Assignment1.Data
 @using Assignment1.Persistance
 @inject IFileAdapter FileAdapter
 
 <h3>Adults</h3>
 
-    @if (adults == null)
+<p style="font-size:30px">
+    @*default text*@
+    Filter by name: <input @oninput="@(arg => Filter(arg))" style="width:250px"/>
+</p>
+@if (toShowAdults == null)
     {
         <p>
             <em>Loading...</em>
         </p>
     }
-    else if (!adults.Any())
+    else if (!toShowAdults.Any())
     {
         <p>
             <em>No Adults items exist. Please add some.</em>
@@ -36,7 +39,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach (var adult in adults)
+            @foreach (var adult in toShowAdults)
             {
                 <tr>
                     <td>@adult.Id</td>
@@ -57,9 +60,31 @@
 
 @code {
     private IList<Adult> adults;
+    private IList<Adult> toShowAdults;
+
+    private string? filterByName;
     
     protected override async Task OnInitializedAsync()
     {
         adults = FileAdapter.GetAdults();
+        toShowAdults = adults;
+    }
+
+    private void Filter(ChangeEventArgs changeEventArgs)
+    {
+        filterByName = null;
+        try
+        {
+            filterByName = changeEventArgs.Value.ToString();
+        }
+        catch (Exception e){}
+        ExecuteFilter();
+    }
+
+    private void ExecuteFilter()
+    {
+        toShowAdults = adults.Where(a =>
+            (filterByName != null && (a.FirstName.ToLower().Contains(filterByName.ToLower()) || a.LastName.ToLower().Contains(filterByName.ToLower())) || filterByName == null)).ToList();
+
     }
 }
