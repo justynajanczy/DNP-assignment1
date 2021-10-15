@@ -105,12 +105,15 @@ using Assignment1.Persistance;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 62 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\AddAdult.razor"
+#line 68 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\AddAdult.razor"
  
     public Adult newAdultItem = new Adult();
+    public Job newAdultJob = new Job();
+    List<char> Sex = new List<char> {'F', 'M'};
 
     private void AddNewAdult()
     {
+        newAdultItem.JobTitle = newAdultJob;
         FileAdapter.AddAdult(newAdultItem);
         NavigationManager.NavigateTo("/Adults");
     }

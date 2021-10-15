@@ -91,13 +91,6 @@ using Assignment1.Models;
 #nullable disable
 #nullable restore
 #line 3 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Adults.razor"
-using Assignment1.Data;
-
-#line default
-#line hidden
-#nullable disable
-#nullable restore
-#line 4 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Adults.razor"
 using Assignment1.Persistance;
 
 #line default
@@ -112,13 +105,35 @@ using Assignment1.Persistance;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 58 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Adults.razor"
+#line 61 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Adults.razor"
        
     private IList<Adult> adults;
+    private IList<Adult> toShowAdults;
+
+    private string? filterByName;
     
     protected override async Task OnInitializedAsync()
     {
         adults = FileAdapter.GetAdults();
+        toShowAdults = adults;
+    }
+
+    private void Filter(ChangeEventArgs changeEventArgs)
+    {
+        filterByName = null;
+        try
+        {
+            filterByName = changeEventArgs.Value.ToString();
+        }
+        catch (Exception e){}
+        ExecuteFilter();
+    }
+
+    private void ExecuteFilter()
+    {
+        toShowAdults = adults.Where(a =>
+            (filterByName != null && (a.FirstName.ToLower().Contains(filterByName.ToLower()) || a.LastName.ToLower().Contains(filterByName.ToLower())) || filterByName == null)).ToList();
+
     }
 
 #line default

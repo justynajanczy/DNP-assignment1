@@ -223,5 +223,35 @@
     "Weight": 81.8,
     "Height": 172,
     "Sex": "M"
+  },
+  {
+    "JobTitle": {
+      "JobTitle": "Student",
+      "Salary": 0
+    },
+    "Id": 15,
+    "FirstName": "Justyna",
+    "LastName": "Janczy",
+    "HairColor": "Brown",
+    "EyeColor": "Grey",
+    "Age": 21,
+    "Weight": 0,
+    "Height": 180,
+    "Sex": "F"
+  },
+  {
+    "JobTitle": {
+      "JobTitle": "Software engineer",
+      "Salary": 0
+    },
+    "Id": 16,
+    "FirstName": "Sandra",
+    "LastName": "Grzelak",
+    "HairColor": null,
+    "EyeColor": null,
+    "Age": 21,
+    "Weight": 0,
+    "Height": 0,
+    "Sex": "F"
   }
 ]
