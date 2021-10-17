@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Assignment1.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Assignment1.Data;
 using Assignment1.Persistance;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Assignment1
 {
@@ -30,6 +32,16 @@ namespace Assignment1
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<IFileAdapter, FileAdapter>();
+            services.AddScoped<IUserService, InMemoryUserService>();
+            services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("MustBeStudent", a =>
+                    a.RequireAuthenticatedUser().RequireClaim("Role", "Student"));
+                options.AddPolicy("SecurityLevel4", a =>
+                    a.RequireAuthenticatedUser().RequireClaim("Level", "4", "5"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

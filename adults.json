@@ -133,20 +133,5 @@
     "Weight": 55.4,
     "Height": 100,
     "Sex": "M"
-  },
-  {
-    "JobTitle": {
-      "JobTitle": null,
-      "Salary": 0
-    },
-    "Id": 14,
-    "FirstName": "fghfg",
-    "LastName": "sfhsfg",
-    "HairColor": null,
-    "EyeColor": null,
-    "Age": 25,
-    "Weight": 0,
-    "Height": 0,
-    "Sex": "M"
   }
 ]

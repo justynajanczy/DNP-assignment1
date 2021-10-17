@@ -4,7 +4,7 @@
 #pragma warning disable 0649
 #pragma warning disable 0169
 
-namespace Assignment1.Pages
+namespace LoginComponent
 {
     #line hidden
     using System;
@@ -83,21 +83,14 @@ using Assignment1.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\AddAdult.razor"
-using Assignment1.Models;
+#line 3 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Login.razor"
+using Assignment1.Authentication;
 
 #line default
 #line hidden
 #nullable disable
-#nullable restore
-#line 3 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\AddAdult.razor"
-using Assignment1.Persistance;
-
-#line default
-#line hidden
-#nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/AddAdult")]
-    public partial class AddAdult : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Login")]
+    public partial class Login : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,25 +98,46 @@ using Assignment1.Persistance;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 72 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\AddAdult.razor"
- 
-    public Adult newAdultItem = new Adult();
-    public Job newAdultJob = new Job();
-    List<char> Sex = new List<char> {'F', 'M'};
+#line 35 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Login.razor"
+       
+    private string username;
+    private string password;
+    private string errorMessage;
 
-    private void AddNewAdult()
+    public async Task PerformLogin()
     {
-        newAdultItem.JobTitle = newAdultJob;
-        FileAdapter.AddAdult(newAdultItem);
-        NavigationManager.NavigateTo("/Adults");
+        errorMessage = "";
+        try
+        {
+            ((CustomAuthenticationStateProvider) AuthenticationStateProvider).ValidateLogin(username, password);
+            username = "";
+            password = "";
+            NavigationManager.NavigateTo("/");
+        }
+        catch (Exception e)
+        {
+            errorMessage = e.Message;
+        }
+    }
+
+    public async Task PerformLogout()
+    {
+        errorMessage = "";
+        username = "";
+        password = "";
+        try
+        {
+            ((CustomAuthenticationStateProvider) AuthenticationStateProvider).Logout();
+            NavigationManager.NavigateTo("/Login");
+        }
+        catch (Exception e){}
     }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IFileAdapter FileAdapter { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private AuthenticationStateProvider AuthenticationStateProvider { get; set; }
     }
 }
 #pragma warning restore 1591

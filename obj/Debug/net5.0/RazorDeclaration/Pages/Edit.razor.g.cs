@@ -83,15 +83,29 @@ using Assignment1.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Edit.razor"
+#line 3 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Edit.razor"
 using Assignment1.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Edit.razor"
+#line 4 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Edit.razor"
 using Assignment1.Persistance;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 5 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Edit.razor"
+using Microsoft.AspNetCore.Mvc.Controllers;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 2 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Edit.razor"
+           [Authorize(Policy="SecurityLevel4")]
 
 #line default
 #line hidden
@@ -105,7 +119,7 @@ using Assignment1.Persistance;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 75 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Edit.razor"
+#line 79 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Edit.razor"
  
     //parameter because can be set from the outside
     [Parameter]

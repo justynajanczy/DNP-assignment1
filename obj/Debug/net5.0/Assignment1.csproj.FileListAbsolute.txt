@@ -60,3 +60,5 @@ C:\STUDIA\3.1\DNP\Assignments\Assignment1\obj\Debug\net5.0\RazorDeclaration\Page
 C:\STUDIA\3.1\DNP\Assignments\Assignment1\obj\Debug\net5.0\Razor\Pages\AddAdult.razor.g.cs
 C:\STUDIA\3.1\DNP\Assignments\Assignment1\obj\Debug\net5.0\RazorDeclaration\Pages\Edit.razor.g.cs
 C:\STUDIA\3.1\DNP\Assignments\Assignment1\obj\Debug\net5.0\Razor\Pages\Edit.razor.g.cs
+C:\STUDIA\3.1\DNP\Assignments\Assignment1\obj\Debug\net5.0\RazorDeclaration\Pages\Login.razor.g.cs
+C:\STUDIA\3.1\DNP\Assignments\Assignment1\obj\Debug\net5.0\Razor\Pages\Login.razor.g.cs
