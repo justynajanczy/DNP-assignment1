@@ -83,21 +83,21 @@ using Assignment1.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Adults.razor"
+#line 2 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Edit.razor"
 using Assignment1.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Adults.razor"
+#line 3 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Edit.razor"
 using Assignment1.Persistance;
 
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/Adults")]
-    public partial class Adults : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/Edit/{Id:int}")]
+    public partial class Edit : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,73 +105,30 @@ using Assignment1.Persistance;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 83 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Adults.razor"
-       
-    private IList<Adult> adults;
-    private IList<Adult> toShowAdults;
+#line 75 "C:\STUDIA\3.1\DNP\Assignments\Assignment1\Pages\Edit.razor"
+ 
+    //parameter because can be set from the outside
+    [Parameter]
+    public int Id { get; set; }
+    List<char> Sex = new List<char> {'F', 'M'};
 
-    private string filterByName;
-    private string filterHairColor;
-    
+    private Adult adultToEdit;
+
     protected override async Task OnInitializedAsync()
     {
-        adults = FileAdapter.GetAdults();
-        toShowAdults = adults;
+        adultToEdit = FileAdapter.Get(Id);
     }
 
-    private void RemoveAdult(int id)
+    private void Save()
     {
-        Adult toRemove = adults.First(a => a.Id == id);
-        FileAdapter.RemoveAdult(id);
-        adults.Remove(toRemove);
-        toShowAdults.Remove(toRemove);
-    }
-
-    private void FilterByName(ChangeEventArgs changeEventArgs)
-    {
-        filterByName = null;
-        try
-        {
-            filterByName = changeEventArgs.Value.ToString();
-        }
-        catch (Exception e){}
-        ExecuteFilter();
-    }
-
-    private void FilterByHairColor(ChangeEventArgs changeEventArgs)
-    {
-        filterHairColor = null;
-        try
-        {
-            filterHairColor = changeEventArgs.Value.ToString();
-        }
-        catch(Exception e){}
-        ExecuteFilter();
-    }
-
-    private void Edit(int id)
-    {
-        NavigationManager.NavigateTo($"Edit/{id}");
-    }
-
-    private void ExecuteFilter()
-    {
-        toShowAdults = adults.Where(a =>
-            ( ( filterByName != null && ( a.FirstName.ToLower().Contains( filterByName.ToLower() ) || a.LastName.ToLower().Contains( filterByName.ToLower() ) ) ) || filterByName == null) 
-            &&
-            (filterHairColor != null && a.HairColor == filterHairColor || filterHairColor == "All")).ToList();
-
-    }
-
-    private void NavigateToAddAdult()
-    {
-        NavigationManager.NavigateTo("/AddAdult");
+        FileAdapter.UpdateAdult(adultToEdit);
+        NavMgr.NavigateTo("/Adults");
     }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavigationManager { get; set; }
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager NavMgr { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private IFileAdapter FileAdapter { get; set; }
     }
 }

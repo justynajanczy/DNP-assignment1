@@ -6,6 +6,7 @@ namespace Assignment1.Persistance
     public interface IFileAdapter
     {
         public void AddAdult(Adult a);
+        public IList<string> GetHairColors();
         public Adult FilterById(int id);
         public IList<Adult> FilterByFirstName(string name);
         public IList<Adult> FilterByLastName(string name);
@@ -19,9 +20,11 @@ namespace Assignment1.Persistance
         public IList<Adult> FilterBySalaryBiggerThan(int s);
         public IList<Adult> FilterBySalarySmallerThan(int s);
         public void RemovePerson(Person p);
+        public void RemoveAdult(int id);
         public void RemoveLastPerson();
         public void UpdateAdult(Adult p);
         public IList<Adult> GetAdults();
+        Adult Get(int id);
 
     }
 }

@@ -68,3 +68,8 @@ a, .btn-link {
     {
         background: antiquewhite;
     }
+    
+    .form-group
+    {
+        font-size: 22px;
+    }

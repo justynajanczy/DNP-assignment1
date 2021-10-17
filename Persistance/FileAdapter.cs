@@ -18,6 +18,20 @@ namespace Assignment1.Persistance
             myFileContext.SaveChanges();
         }
 
+        public IList<string> GetHairColors()
+        {
+            List<string> hairColors = new List<string>();
+            foreach (Adult a in myFileContext.Adults)
+            {
+                if (!hairColors.Contains(a.HairColor) && a.HairColor!=null)
+                {
+                    hairColors.Add(a.HairColor);
+                }
+            }
+
+            return hairColors;
+        }
+
         public Adult FilterById(int id)
         {
             return (Adult)myFileContext.Adults.Where(p => p.Id == id);  
@@ -84,6 +98,13 @@ namespace Assignment1.Persistance
             myFileContext.SaveChanges();
         }
 
+        public void RemoveAdult(int id)
+        {
+            Adult toRemove = myFileContext.Adults.First(a => a.Id == id);
+            myFileContext.Adults.Remove(toRemove);
+            myFileContext.SaveChanges();
+        }
+
         public void RemoveLastPerson()
         {
             myFileContext.Adults.RemoveAt(myFileContext.Adults.Count-1);
@@ -92,7 +113,16 @@ namespace Assignment1.Persistance
 
         public void UpdateAdult(Adult p)
         {
-            myFileContext.Adults.Insert(p.Id, p);
+            Adult toUpdate = myFileContext.Adults.First(a => a.Id == p.Id);
+            toUpdate.FirstName = p.FirstName;
+            toUpdate.LastName = p.LastName;
+            toUpdate.Age = p.Age;
+            toUpdate.Height = p.Height;
+            toUpdate.JobTitle.JobTitle = p.JobTitle.JobTitle;
+            toUpdate.JobTitle.Salary = p.JobTitle.Salary;
+            toUpdate.Sex = p.Sex;
+            toUpdate.Weight = p.Weight;
+            toUpdate.EyeColor = p.EyeColor;
             myFileContext.SaveChanges();
         }
 
@@ -100,6 +130,11 @@ namespace Assignment1.Persistance
         {
             List<Adult> tmp = new List<Adult>(myFileContext.Adults);
             return tmp;
+        }
+
+        public Adult Get(int id)
+        {
+            return myFileContext.Adults.FirstOrDefault(a => a.Id == id);
         }
     }
 }
